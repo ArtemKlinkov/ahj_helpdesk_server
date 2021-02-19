@@ -1,0 +1,22 @@
+{
+  "name": "ahj_helpdesk_server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "forever server.js",
+    "watch": "forever -w server.js"
+  },
+  "repository": "https://github.com/ArtemKlinkov/ahj_testing.git",
+  "author": "Artem <artemklinkov@yandex.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "forever": "^3.0.4",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": "11.x"
+  }
+}
