@@ -56,24 +56,40 @@ class Tickets {
   }
 }
 
+const ticket1 = new Tickets(1, '11', '111', '1111', '1111111111');
+
+tickets.push(ticket1);
+
 app.use(async ctx => {
   // GET
   if (ctx.method === 'GET') {
-    const { id } = ctx.request.query;
-    if (id) {
-      const ticket = tickets.find(item => item.id == id);
-      ctx.response.body = ticket.description;
-      return;
+    const { method } = ctx.request.query;
+    switch (method) {
+      case 'allTickets':
+        ctx.response.body = tickets.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            status: item.status,
+            created: item.created,
+          };
+        });
+        return;
+      case 'ticketById':
+        const { id } = ctx.request.query;
+        if (id) {
+          const ticket = tickets.find(item => item.id == id);
+          if (ticket) {
+            ctx.response.body = ticket;
+          } else {
+            ctx.response.status = 404;
+          }
+        }
+        return;
+      default: 
+        ctx.response.status = 404;
+        return;
     }
-    ctx.response.body = tickets.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        status: item.status,
-        created: item.created,
-      };
-    });
-    return;
   }
 
   // POST
