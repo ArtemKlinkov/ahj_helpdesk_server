@@ -56,10 +56,6 @@ class Tickets {
   }
 }
 
-const ticket1 = new Tickets(1, '11', '111', '1111', '1111111111');
-
-tickets.push(ticket1);
-
 app.use(async ctx => {
   // GET
   if (ctx.method === 'GET') {
@@ -106,7 +102,6 @@ app.use(async ctx => {
   if (ctx.method === 'PUT') {
     const { id, name, description } = ctx.request.body;
     const index = tickets.findIndex((item) => item.id === id);
-    console.log(index);
     tickets[index].name = name;
     tickets[index].description = description;
     ctx.response.body = 'ok';
@@ -125,7 +120,9 @@ app.use(async ctx => {
   // DELETE
   if (ctx.method === 'DELETE') {
     const { id } = ctx.request.query;
-    tickets = tickets.filter((item) => item.id !== id);
+    // tickets = tickets.filter((item) => item.id !== id);
+    const foundIndex = tickets.findIndex((item) => item.id === id);
+    tickets.splice(foundIndex, 1);
     ctx.response.body = 'ok';
     return;
   }
