@@ -56,6 +56,9 @@ class Tickets {
   }
 }
 
+const exampleTicket = new Tickets(uuid.v4(), 'Поменять краску', 'Поменять краску в принтере, ком 404', false, new Date());
+tickets.push(exampleTicket);
+
 app.use(async ctx => {
   // GET
   if (ctx.method === 'GET') {
